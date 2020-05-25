@@ -22,6 +22,8 @@ Running the code:
 This repository has a server.js file which is the entry point for the application.
 To run the code(placed inside a folder, say NEM)  
 
+    note: You must have MongoDB installed already
+
 >node <foldername>NEM
 
 You may use nodemon to monitor the server and automate the process 
