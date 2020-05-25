@@ -1,6 +1,6 @@
 module.exports=mongoose=>{
-	const Tutorial = mongoose.model(
-		"tutorial",
+	const Note = mongoose.model(
+		"note",
 		mongoose.Schema(
 			{
 				title:String,
@@ -13,5 +13,5 @@ module.exports=mongoose=>{
 		)
 	);
 
-	return Tutorial;
+	return Note;
 };

@@ -1,7 +1,7 @@
 const db = require("../models");
-const Tutorial = db.tutorials;
+const Note = db.notes;
 
-//create and save a new tutorial
+//create and save a new note
 exports.create = (req,res)=>{
 	//validate request
 	if(!req.body.title){
@@ -9,52 +9,52 @@ exports.create = (req,res)=>{
 		return;
 	}
 
-	//create a tutorial
-	const tutorial = new Tutorial({
+	//create a note
+	const note = new Note({
 		title:req.body.title,
 		description:req.body.description,
 		published:req.body.published ? req.body.published:true
 	});
 
-	//save tutorial in the database
-	tutorial.save(tutorial).then(data=>{
+	//save note in the database
+	note.save(note).then(data=>{
 		res.send(data);
 	})
 	.catch(err=>{
 		res.status(500).send({
-			message:err.message || "some error occured while creating the tutorial"
+			message:err.message || "some error occured while creating the note"
 		});
 	});
 };
 
-//retreive all tutorials from data base
+//retreive all notes from data base
 exports.findAll=(req,res)=>{
 	const title= req.query.title;
 	var condition = title? {title:{$regex:new RegExp(title),$options:"i"}}:{};
 
-	Tutorial.find(condition).then(data=>{
+	Note.find(condition).then(data=>{
 		res.send(data);
 	})
 	.catch(err=>{
 		res.status(500).send({
-			message:err.message || "some error occured while retrieving tutorials"
+			message:err.message || "some error occured while retrieving notes"
 		});
 	});	
 };
 
-//find a single tutorial with an id
+//find a single note with an id
 exports.findOne=(req,res)=>{
 	const id = req.params.id;
 
-	Tutorial.findById(id).then(data=>{
+	Note.findById(id).then(data=>{
 		if(!data){
-			res.status(404).send({message:"not found tutorial with id:"+id});
+			res.status(404).send({message:"not found note with id:"+id});
 		}else{
 			res.send(data);
 		}
 	})
 	.catch(err=>{
-		res.status(500).send({message:"Error retrieving tutorial with id:"+id});
+		res.status(500).send({message:"Error retrieving note with id:"+id});
 	});
 };
 
@@ -68,71 +68,71 @@ exports.update=(req,res)=>{
 
 	const id= req.params.id;
 
-	Tutorial.findByIdAndUpdate(id,req.body,{useFindAndModify:false})
+	Note.findByIdAndUpdate(id,req.body,{useFindAndModify:false})
 	.then(data=>{
 		if(!data){
 			res.status(400).send({
-				message:"cannot update tutorial with id:"+id
+				message:"cannot update note with id:"+id
 			});
 		}else{
-			res.send({message:"tutorial was updated successfully"});
+			res.send({message:"note was updated successfully"});
 		}
 	})
 	.catch(err=>{
 		res.status(500).send({
-			message:"Error updating tutorial with id:"+id
+			message:"Error updating note with id:"+id
 		});
 	});
 
 };
 
-//delete a tutorial by id 
+//delete a note by id 
 exports.delete=(req,res)=>{
 	const id= req.params.id;
 
-	Tutorial.findByIdAndRemove(id)
+	Note.findByIdAndRemove(id)
 	.then(data=>{
 		if(!data){
 			res.status(404).send({
-				message:"cannot delete tutorial with id:"+id
+				message:"cannot delete note with id:"+id
 			});
 		}else{
 			res.send({
-				message:"tutorial was deleted successfully"
+				message:"note was deleted successfully"
 			});
 		}
 	})
 	.catch(err=>{
 		res.status(500).send({
-			message:"Could not delete tutorial with id:"+id
+			message:"Could not delete note with id:"+id
 		});
 	});
 };
 
-//delete all tutorials
+//delete all notes
 exports.deleteAll=(req,res)=>{
-	Tutorial.deleteMany({})
+	Note.deleteMany({})
 	.then(data=>{
 		res.send({
-			message:data.deletedCount+"Tutorials were deleted successfully"
+			message:data.deletedCount+"Notes were deleted successfully"
 		});
 	})
 	.catch(err=>{
 		res.status(500).send({
-			message:err.message || "some error occured while removing all tutorials"
+			message:err.message || "some error occured while removing all notes"
 		});
 	});
 };
 	
-//find all published tutorials
+//find all published notes
 exports.findAllPublished=(req,res)=>{
-	Tutorial.find({published:true})
+	Note.find({published:true})
 	.then(data=>{
 		res.send(data);
 	})
 	.catch(err=>{
 		res.status(500).send({
-			message:err.message|| "some error occured while retrieving tutorials"
+			message:err.message|| "some error occured while retrieving notes"
 		});
 	});
 };

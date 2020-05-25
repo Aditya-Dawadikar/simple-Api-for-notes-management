@@ -35,7 +35,7 @@ app.get("/",(req,res)=>{
 	res.json({message:"welcome to my application"});
 });
 
-require("./app/routes/tutorials.routes")(app);
+require("./app/routes/notes.routes")(app);
 
 
 //set port,listen for requests
