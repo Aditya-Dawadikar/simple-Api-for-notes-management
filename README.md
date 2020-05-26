@@ -40,6 +40,35 @@ Routes:
 * /api/tutorials/: id: GET, PUT, DELETE
 * /api/tutorials/published: GET
 
+For personal use make following changes in the code
+----
+ 1. MongoDb Schema
+ Edit the Schema with prefered data in the app/models/note.model.js file
+ ~~~
+ mongoose.Schema(
+			{
+				title:String,
+				description:String,
+				published:Boolean
+			},
+			{
+				timestamps:true
+			}
+		)
+~~~
+2. Edit create method in app/controllers/note.controllers.js
+~~~
+ //create a note
+ const note = new Note({
+ title:req.body.title,
+ description:req.body.description,
+ published:req.body.published ? req.body.published:true
+ });
+~~~
+
 source:
 ----
 https://bezkoder.com/node-express-mongodb-crud-rest-api/
+
+
+
