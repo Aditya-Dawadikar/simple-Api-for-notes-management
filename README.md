@@ -36,9 +36,9 @@ To run the code using nodemon
 
 Routes:
 ----
-* /api/tutorials: GET, POST, DELETE
-* /api/tutorials/: id: GET, PUT, DELETE
-* /api/tutorials/published: GET
+* /api/notes: GET, POST, DELETE
+* /api/notes/: id: GET, PUT, DELETE
+* /api/notes/published: GET
 
 For personal use make following changes in the code
 ----
